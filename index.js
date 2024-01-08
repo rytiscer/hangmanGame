@@ -26,8 +26,6 @@ function wordGenerator(wordsArray) {
   return word;
 }
 
-console.log(`Spejamas zodis yra: ${chosenWord}`);
-
 let display = "";
 for (let i = 0; i < chosenWord.length; i++) {
   display += "_ ";
@@ -36,7 +34,6 @@ document.getElementById("word").textContent = display;
 
 function handleGuess() {
   let userGuess = document.getElementById("letter").value.toLowerCase();
-  console.log(userGuess);
   document.getElementById("letter").value = "";
   infoField.innerHTML = "";
 
