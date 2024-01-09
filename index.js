@@ -10,7 +10,7 @@ const wordsArray = [
 ];
 
 let chances = 10;
-let chosenWord = wordGenerator(wordsArray);
+
 const form = document.getElementById("form");
 const guessCount = document.getElementById("guessCount");
 const usedLetters = document.getElementById("guessedLetters");
@@ -20,11 +20,13 @@ const newGame = document.getElementById("newGame");
 guessCount.innerHTML = `Spėjimu skaicius: ${chances}`;
 const guessedLetters = [];
 
-function wordGenerator(wordsArray) {
+const wordGenerator = (wordsArray) => {
   let wordsArrayIndex = Math.floor(Math.random() * wordsArray.length);
   let word = wordsArray[wordsArrayIndex];
   return word;
-}
+};
+
+let chosenWord = wordGenerator(wordsArray);
 
 let display = "";
 for (let i = 0; i < chosenWord.length; i++) {
@@ -32,7 +34,7 @@ for (let i = 0; i < chosenWord.length; i++) {
 }
 document.getElementById("word").textContent = display;
 
-function handleGuess() {
+const handleGuess = () => {
   let userGuess = document.getElementById("letter").value.toLowerCase();
   document.getElementById("letter").value = "";
   infoField.innerHTML = "";
@@ -55,7 +57,6 @@ function handleGuess() {
     .join(" ");
 
   updateWordDisplay(userGuess);
-  guessCount.innerHTML = `Spėjimų skaičius: ${chances}`;
 
   // Tikrinimas ar visas zodis atspetas
   if (display.indexOf("_") === -1) {
@@ -65,7 +66,7 @@ function handleGuess() {
   }
   if (!chosenWord.includes(userGuess)) {
     chances--;
-    guessCount.innerHTML = `Spėjimu skaičius: ${chances}`;
+    guessCount.innerHTML = `Liko spėjimų: ${chances}`;
   }
 
   // Tikrinimas ar dar liko bandymu
@@ -74,9 +75,9 @@ function handleGuess() {
     infoField.style.color = "red";
     guessButton.disabled = true;
   }
-}
+};
 
-function updateWordDisplay(userGuess) {
+const updateWordDisplay = (userGuess) => {
   // atnaujinimas su atspetom raidem
   let newDisplay = "";
   for (let i = 0; i < chosenWord.length; i++) {
@@ -88,12 +89,11 @@ function updateWordDisplay(userGuess) {
   }
   display = newDisplay;
   document.getElementById("word").textContent = display;
-}
+};
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   handleGuess();
-  console.log(guessedLetters);
 });
 
 newGame.addEventListener("click", (e) => {
